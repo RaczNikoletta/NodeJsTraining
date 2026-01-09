@@ -35,7 +35,7 @@ function ask (i = 0){
     process.stdout.write( ` > `);
 }
 
-ask();
+//ask();
 
 process.stdin.on("data", function(data) {
     answers.push(data.toString().trim());
@@ -55,3 +55,28 @@ process.on("exit",function(){
 
     );
 });
+
+const waitTime = 3000;
+console.log(`setting a ${waitTime/1000} second delay`);
+const timerFinished = () => {
+    clearInterval(interval);
+    console.log("done");
+};
+
+//call function after timeout(waittime)
+setTimeout(timerFinished, waitTime);
+
+//half sec
+const waitInterval = 500;
+let currentTime = 0;
+
+//call the function every half sec
+const incTime = () => {
+    currentTime += waitInterval;
+    const p = Math.floor((currentTime/waitTime) * 100);
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(`waiting .. ${p}`);
+};
+
+const interval = setInterval(incTime, waitInterval);
